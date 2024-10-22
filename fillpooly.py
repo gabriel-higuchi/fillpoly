@@ -18,7 +18,6 @@ class PoligonoApp:
         self.cor_aresta = "yellow"  # Cor padrão das arestas
         self.cor_preencher = "lightblue"  # Cor padrão de preenchimento
         self.poligono_selecionado = None  # ID do polígono selecionado para excluir
-        self.modo_selecao = False  # Flag para verificar se está no modo de seleção
         self.contador_poligonos = 0  # Contador de polígonos
         self.botao_poligonos = {}  # Dicionário para armazenar os botões dos polígonos
 
@@ -46,20 +45,16 @@ class PoligonoApp:
         # Eventos de clique no canvas
         self.canvas.bind("<Button-1>", self.adicionar_ponto)  # Clique simples para adicionar pontos
         self.canvas.bind("<Double-1>", self.fechar_poligono)  # Duplo clique para fechar o polígono
-        self.canvas.bind("<Button-3>", self.selecionar_poligono)  # Clique direito para selecionar polígono
-
-        # Evento de tecla
-        self.root.bind("<v>", self.ativar_modo_selecao)  # Ativa o modo de seleção ao pressionar 'v'
 
     def adicionar_ponto(self, event):
         """Adiciona um ponto e desenha-o no canvas."""
-        if not self.modo_selecao:  # Permite adicionar pontos apenas se não estiver no modo de seleção
-            x, y = event.x, event.y
-            self.pontos.append((x, y))
-            raio = 3
-            ponto_id = self.canvas.create_oval(x - raio, y - raio, x + raio, y + raio, fill='black')
-            self.pontos_ids.append(ponto_id)  # Armazena o ID do ponto
-            print(f"Adicionando ponto ({x}, {y})")
+          # Permite adicionar pontos apenas se não estiver no modo de seleção
+        x, y = event.x, event.y
+        self.pontos.append((x, y))
+        raio = 3
+        ponto_id = self.canvas.create_oval(x - raio, y - raio, x + raio, y + raio, fill='black')
+        self.pontos_ids.append(ponto_id)  # Armazena o ID do ponto
+        print(f"Adicionando ponto ({x}, {y})")
 
     def fechar_poligono(self, event):
         """Fecha o polígono e armazena seu ID."""
@@ -155,25 +150,6 @@ class PoligonoApp:
         nova_cor = colorchooser.askcolor(title="Escolher Cor da Aresta")[1]
         if nova_cor:
             self.cor_aresta = nova_cor
-
-    def ativar_modo_selecao(self, event):
-        """Ativa o modo de seleção."""
-        self.modo_selecao = True
-        self.canvas.bind("<Button-1>", self.selecionar_poligono)  # Ativa a seleção com clique esquerdo
-        self.root.bind("<KeyRelease-v>", self.desativar_modo_selecao)  # Desativa o modo de seleção ao soltar 'v'
-
-    def desativar_modo_selecao(self, event):
-        """Desativa o modo de seleção."""
-        self.modo_selecao = False
-        self.canvas.bind("<Button-1>", self.adicionar_ponto)  # Retorna ao modo de adicionar pontos
-
-    def selecionar_poligono(self, event):
-        """Seleciona um polígono clicando nele."""
-        item = self.canvas.find_closest(event.x, event.y)  # Encontra o item mais próximo do clique
-        if item in self.poligonos:  # Verifica se o item é um polígono
-            self.poligono_selecionado = item  # Armazena o ID do polígono selecionado
-            # Para visual feedback, você pode mudar a cor da borda do polígono selecionado
-            self.canvas.itemconfig(self.poligono_selecionado, outline='red')
 
     def excluir_poligono(self):
         if self.poligono_selecionado:
