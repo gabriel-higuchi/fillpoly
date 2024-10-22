@@ -71,7 +71,6 @@ class PoligonoApp:
                 self.canvas.itemconfig(self.poligono_selecionado, outline=self.cor_aresta)
             else:
                 self.canvas.itemconfig(self.poligono_selecionado, outline="")
-
             # Atualiza o preenchimento do polígono
             self.atualizar_preenchimento(self.poligono_selecionado)
 

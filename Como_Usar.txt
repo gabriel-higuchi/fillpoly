@@ -1,0 +1,17 @@
+Desenhar o poligono:
+    1 - Clicar no canvas para adicionar um ponto
+    2 - Duplo clique fecha o poligono
+Mudar cor de preenchimento:
+    1 - selecione o poligono desejado
+    2 - clique para mudar cor do preenchimento
+Mudar cor da aresta:
+    1 - Selecione o botão "mudar cor da aresta"
+    2 - Desenhe o poligono
+        obs: ele atualiza a cor da aresta apenas no próximo poligono
+Excluir poligono:
+    1 - selecione o poligono no botão correspondente
+        obs: o poligono selecionado irá ficar com a aresta vermelha
+    2 - Clique no botão "excluir"
+Ocultar arestas:
+    1 - Selecione o poligono que deseja
+    2 - clique para ocultar ou exibir as arestas
